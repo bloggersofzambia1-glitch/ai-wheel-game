@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wheel Game</title>
+</head>
+
+<body style="text-align:center; background:black; color:white;">
+
+<h1>🎡 AI Wheel Game</h1>
+
+<canvas id="wheel" width="300" height="300"></canvas>
+<br>
+<button onclick="spin()">Spin</button>
+
+<p id="result"></p>
+
+<script>
+const options = ["Video", "Job", "Voice"];
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+
+const slice = 2 * Math.PI / options.length;
+let angle = 0;
+
+function draw() {
+  for(let i=0;i<options.length;i++){
+    ctx.beginPath();
+    ctx.moveTo(150,150);
+    ctx.arc(150,150,140,i*slice,(i+1)*slice);
+    ctx.fillStyle = i%2 ? "green" : "blue";
+    ctx.fill();
+
+    ctx.fillStyle = "white";
+    ctx.fillText(options[i],180,150);
+  }
+}
+
+draw();
+
+function spin(){
+  angle += Math.random()*500;
+  ctx.clearRect(0,0,300,300);
+  draw();
+
+  const result = options[Math.floor(Math.random()*options.length)];
+  document.getElementById("result").innerText = "Result: " + result;
+}
+</script>
+
+</body>
+</html>
